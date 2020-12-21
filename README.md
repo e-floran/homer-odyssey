@@ -4,4 +4,8 @@ Dans le cadre de ma formation à la **Wild code school**, l'Odyssey d'Homer est 
 
 ### 0 - Préparation au voyage
 
-L'objectif est ici simplement la création du repo et la préparation de l'espace de travail.
+L'objectif est ici simplement la création du repo et la préparation de l'environnement de développement.
+
+### 1 - Composant React pour l'inscription d'un utilisateur
+
+Premier composant simple avec un input mettant à jour un state, ce dernier étant affiché dans un titre.

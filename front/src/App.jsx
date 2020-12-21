@@ -1,12 +1,11 @@
 import React from 'react';
+import SignUp from './components/SignUp';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>React starter template</h1>
-      </header>
+      <SignUp />
     </div>
   );
 }
