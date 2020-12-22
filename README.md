@@ -9,3 +9,7 @@ L'objectif est ici simplement la création du repo et la préparation de l'envir
 ### 1 - Composant React pour l'inscription d'un utilisateur
 
 Premier composant simple avec un input mettant à jour un state, ce dernier étant affiché dans un titre.
+
+### 2 - Création d'un formulaire d'enregistrement
+
+Enrichissement du composant avec plusieurs champs dans un formulaire, tous gérés par le state.
