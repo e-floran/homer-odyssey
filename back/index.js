@@ -1,9 +1,10 @@
-// const  http  =  require('http');
-// const  path  =  require('path');
+// const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const { port } = require('./config');
+const connection = require('./config');
+
+const { port } = connection.config;
 
 const app = express();
 const routes = require('./routes');
@@ -11,7 +12,7 @@ const routes = require('./routes');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.static(__dirname  +  '/public'));
+// app.use(path.join(__dirname, 'public'));
 
 app.use('/', routes);
 
