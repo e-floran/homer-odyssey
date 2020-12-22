@@ -1,7 +1,7 @@
 {
-  "name": "express-template",
+  "name": "serveur",
   "version": "1.0.0",
-  "description": "",
+  "description": "serveur de la Wild",
   "main": "index.js",
   "scripts": {
     "start": "node index",
@@ -10,11 +10,13 @@
     "lint": "eslint --ext .js --fix ."
   },
   "keywords": [],
-  "author": "",
+  "author": "wilder",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "body-parser": "^1.18.2",
+    "express": "^4.17.1",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "eslint": "^7.15.0",
