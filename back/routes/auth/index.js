@@ -10,10 +10,9 @@ router.post('/signup', (req, res) => {
     [email, password, firstname, lastname],
     (err, results) => {
       if (err) {
-        console.log(err);
-        results.status(500).send('Error saving new user');
+        results.status(500).json({ flash: err.message });
       } else {
-        res.status(200).send('Successfully saved');
+        res.status(200).json({ flash: 'User has been signed up !' });
       }
     },
   );
