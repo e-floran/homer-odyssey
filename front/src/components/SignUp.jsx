@@ -9,28 +9,27 @@ function SignUp() {
     firstname: '',
     lastname: '',
   });
-  const [flash, setFlash] = useState({});
+  const [flash, setFlash] = useState("Waiting for user");
   const handleChange = (name) => {
     return ({ target: { value } }) => {
       setFormContent((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formContent);
-    axios
-      .post('http://localhost:5000/auth/signup', formContent)
-      .then((response) => response.data)
-      .then(
-        (response)  =>  setFlash(response.data.flash),
-        (err)  =>  setFlash(err.flash),
-        console.log(flash)
-      )
+    try {
+      delete formContent.passwordBis;
+      const { data } = await axios.post("/auth/signup", formContent);
+      setFlash(data.flash);
+    } catch (error) {
+      setFlash(error.response.data.flash);
+    }
+
   };
 
   return (
     <div>
-      <h1>{JSON.stringify(formContent)}</h1>
+      <h1>{flash}</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
