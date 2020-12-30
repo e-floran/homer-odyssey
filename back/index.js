@@ -2,15 +2,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const connection = require('./config');
+// const connection = require('./config');
 
-const { port } = connection.config;
+const port = process.env.PORT || 5000;
 
 const app = express();
 const routes = require('./routes');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(path.join(__dirname, 'public'));
 

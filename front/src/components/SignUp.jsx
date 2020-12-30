@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUp() {
   const [formContent, setFormContent] = useState({
@@ -8,7 +9,7 @@ function SignUp() {
     firstname: '',
     lastname: '',
   });
-  const [flash, setFlash] = useState("");
+  const [flash, setFlash] = useState({});
   const handleChange = (name) => {
     return ({ target: { value } }) => {
       setFormContent((oldValues) => ({ ...oldValues, [name]: value }));
@@ -17,19 +18,14 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formContent);
-    fetch("/auth/signup",
-    {
-        method:  'POST',
-        headers:  new  Headers({
-            'Content-Type':  'application/json'
-        }),
-        body:  JSON.stringify(formContent),
-    })
-    .then(res  =>  res.json())
-    .then(
-        res  =>  setFlash(res.flash),
-        err  =>  setFlash(err.flash)
-    )
+    axios
+      .post('http://localhost:5000/auth/signup', formContent)
+      .then((response) => response.data)
+      .then(
+        (response)  =>  setFlash(response.data.flash),
+        (err)  =>  setFlash(err.flash),
+        console.log(flash)
+      )
   };
 
   return (
