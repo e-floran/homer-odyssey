@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {
+  TextField,
+  Button,
+  SnackbarContent,
+  createMuiTheme,
+} from "@material-ui/core";
 
 function SignUp() {
   const [formContent, setFormContent] = useState({
@@ -9,7 +15,7 @@ function SignUp() {
     firstname: '',
     lastname: '',
   });
-  const [flash, setFlash] = useState("Waiting for user");
+  const [flash, setFlash] = useState("");
   const handleChange = (name) => {
     return ({ target: { value } }) => {
       setFormContent((oldValues) => ({ ...oldValues, [name]: value }));
@@ -26,43 +32,78 @@ function SignUp() {
     }
 
   };
+  const classes = createMuiTheme();
 
   return (
     <div>
-      <h1>{flash}</h1>
+      <h1>Sign up !</h1>
       <form onSubmit={handleSubmit}>
-        <input
+        <TextField
           type="email"
           name="email"
-          value={formContent.email}
+          label="Email"
+          margin="normal"
+                  variant="outlined"
+          value={formContent.email || ""}
           onChange={handleChange('email')}
         />
-        <input
+        <TextField
           type="password"
           name="password"
-          value={formContent.password}
+          label="Password"
+          margin="normal"
+          variant="outlined"
+          value={formContent.password || ""}
           onChange={handleChange('password')}
         />
-        <input
+        <TextField
           type="password"
           name="passwordBis"
-          value={formContent.passwordBis}
+          label="Password confirmation"
+          margin="normal"
+          variant="outlined"
+          value={formContent.passwordBis || ""}
           onChange={handleChange('passwordBis')}
         />
-        <input
+        <TextField
           type="text"
           name="firstname"
-          value={formContent.firstname}
+          label="Firstname"
+          margin="normal"
+           variant="outlined"
+          value={formContent.firstname || ""}
           onChange={handleChange('firstname')}
         />
-        <input
+        <TextField
           type="text"
           name="lastname"
-          value={formContent.lastname}
+          label="Lastname"
+          margin="normal"
+          variant="outlined"
+          value={formContent.lastname || ""}
           onChange={handleChange('lastname')}
         />
-        <input type="submit" name="submit" />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.textField}
+          style={{
+            paddingTop: '16px',
+            paddingBottom: '16px',
+            marginTop: '16px',
+          }}
+        >
+          Submit
+        </Button>
       </form>
+      {flash!=="" &&
+      <SnackbarContent
+        className={classes.snackbar}
+        message={flash}
+        style={{ backgroundColor: '#d32f2f' }}
+      />
+      }
     </div>
   );
 }
