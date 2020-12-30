@@ -17,3 +17,19 @@ Enrichissement du composant avec plusieurs champs dans un formulaire, tous gér�
 ### 3 - Création d'un backend Node
 
 Première route avec gestions d'un GET et d'un POST.
+
+### 4 - Relier le backend et la base de données
+
+Préparation du backend pour écrire dans la base de données en cas de POST.
+
+### 5 - Relier le front et le back
+
+La soumission du formulaire sur le front crée un compte dans la base de données.
+
+### 6 - Ajout de styles
+
+Utilisation de Material UI pour styliser le front.
+
+### 7 - Création de plusieurs routes côté client
+
+Plusieurs composants sont présents et des routes sont créées pour les relier.

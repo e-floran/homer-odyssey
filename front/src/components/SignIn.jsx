@@ -8,13 +8,10 @@ import {
   createMuiTheme,
 } from "@material-ui/core";
 
-function SignUp() {
+function SignIn() {
   const [formContent, setFormContent] = useState({
     email: '',
     password: '',
-    passwordBis: '',
-    firstname: '',
-    lastname: '',
   });
   const [flash, setFlash] = useState("");
   const handleChange = (name) => {
@@ -22,22 +19,14 @@ function SignUp() {
       setFormContent((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      delete formContent.passwordBis;
-      const { data } = await axios.post("/auth/signup", formContent);
-      setFlash(data.flash);
-    } catch (error) {
-      setFlash(error.response.data.flash);
-    }
-
+  const handleSubmit = () => {
+    return <Link to="/profile"></Link>
   };
   const classes = createMuiTheme();
 
   return (
     <div>
-      <h1>Sign up !</h1>
+      <h1>Sign in !</h1>
       <form onSubmit={handleSubmit}>
         <TextField
           type="email"
@@ -57,34 +46,7 @@ function SignUp() {
           value={formContent.password || ""}
           onChange={handleChange('password')}
         />
-        <TextField
-          type="password"
-          name="passwordBis"
-          label="Password confirmation"
-          margin="normal"
-          variant="outlined"
-          value={formContent.passwordBis || ""}
-          onChange={handleChange('passwordBis')}
-        />
-        <TextField
-          type="text"
-          name="firstname"
-          label="Firstname"
-          margin="normal"
-           variant="outlined"
-          value={formContent.firstname || ""}
-          onChange={handleChange('firstname')}
-        />
-        <TextField
-          type="text"
-          name="lastname"
-          label="Lastname"
-          margin="normal"
-          variant="outlined"
-          value={formContent.lastname || ""}
-          onChange={handleChange('lastname')}
-        />
-        <Link to="/" className="classes.submit">
+        <Link to="/profile" className={classes.submit}>
           <Button
             type="submit"
             variant="contained"
@@ -95,11 +57,11 @@ function SignUp() {
               marginTop: '16px',
             }}
           >
-            Submit
+            Log in
           </Button>
         </Link>
       </form>
-      <h2>Already have an account ? <Link to={`/signin`}>Sign in</Link></h2>
+      <h2>No account yet ? <Link to={`/signup`}>Sign up</Link></h2>
       {flash!=="" &&
       <SnackbarContent
         className={classes.snackbar}
@@ -110,4 +72,4 @@ function SignUp() {
     </div>
   );
 }
-export default SignUp;
+export default SignIn;
