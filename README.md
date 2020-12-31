@@ -33,3 +33,7 @@ Utilisation de Material UI pour styliser le front.
 ### 7 - Création de plusieurs routes côté client
 
 Plusieurs composants sont présents et des routes sont créées pour les relier.
+
+### 8 - Ajout d'authentification pour accéder au profile
+
+Des couches sont ajoutées pour gérer le cryptage du mot de passe et l'authentification de l'utilisateur.
