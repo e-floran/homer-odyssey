@@ -37,3 +37,11 @@ Plusieurs composants sont présents et des routes sont créées pour les relier.
 ### 8 - Ajout d'authentification pour accéder au profile
 
 Des couches sont ajoutées pour gérer le cryptage du mot de passe et l'authentification de l'utilisateur.
+
+### 9 - Ajout de Redux
+
+Redux permet de gérer l'authentification malgré le changement de pages et de permettre d'autoriser, ou non, l'accès.
+
+### 10 - Ajout d'un dernier composant
+
+Un composant est rajouté directement dans app.jsx et s'affiche en fonction d'un état géré par Redux.
