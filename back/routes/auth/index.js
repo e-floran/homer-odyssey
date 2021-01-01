@@ -26,7 +26,7 @@ router.post('/signin', (req, res) => {
     if (err) return res.status(500).send(err);
     if (!user) return res.status(400).json({ message: info.message });
     const token = jwt.sign(user, process.env.SECRET);
-    return res.json({ user, token, flash: 'User connected' });
+    return res.json({ user, token, message: 'User connected' });
   })(req, res);
 });
 

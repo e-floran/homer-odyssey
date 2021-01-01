@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { connect } from  'react-redux';
 import axios from 'axios';
 import {
   TextField,
@@ -7,20 +8,39 @@ import {
   SnackbarContent,
   createMuiTheme,
 } from "@material-ui/core";
+import { createSessionAction } from '../actions/authActions';
 
-function SignIn() {
+function SignIn({ createSession }) {
   const [formContent, setFormContent] = useState({
     email: '',
     password: '',
   });
   const [flash, setFlash] = useState("");
+  const history = useHistory();
   const handleChange = (name) => {
     return ({ target: { value } }) => {
       setFormContent((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
-  const handleSubmit = () => {
-    return <Link to="/profile"></Link>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = formContent;
+    if (email && password) {
+      axios
+        .post('/auth/signin', formContent)
+        .then((response) => response.data)
+        .then(
+          (res) => {
+            setFlash(res.message);
+            createSession(res.token);
+            history.replace('/');
+          },
+          (err) =>
+            setFlash(err.response.data)
+        );
+    } else {
+      setFlash("All fields must be completed");
+    }
   };
   const classes = createMuiTheme();
 
@@ -46,20 +66,18 @@ function SignIn() {
           value={formContent.password || ""}
           onChange={handleChange('password')}
         />
-        <Link to="/profile" className={classes.submit}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{
-              paddingTop: '16px',
-              paddingBottom: '16px',
-              marginTop: '16px',
-            }}
-          >
-            Log in
-          </Button>
-        </Link>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{
+            paddingTop: '16px',
+            paddingBottom: '16px',
+            marginTop: '16px',
+          }}
+        >
+          Log in
+        </Button>
       </form>
       <h2>No account yet ? <Link to={`/signup`}>Sign up</Link></h2>
       {flash!=="" &&
@@ -71,5 +89,14 @@ function SignIn() {
       }
     </div>
   );
-}
-export default SignIn;
+};
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  createSession: (token) => dispatch(createSessionAction(token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

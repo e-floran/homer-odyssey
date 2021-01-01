@@ -9,7 +9,7 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     connection.query(
-      'SELECT email, name, lastname FROM users WHERE email = ?',
+      'SELECT email, firstname, lastname FROM users WHERE email = ?',
       req.user.email,
       (err, results) => {
         if (err) {
@@ -17,10 +17,10 @@ router.get(
             .status(401)
             .json({ flash: 'you are not authorized to access this page' });
         } else {
-          const { email, name, lastname } = results[0];
+          const { email, firstname, lastname } = results[0];
           res.json({
             email,
-            name,
+            firstname,
             lastname,
           });
         }
