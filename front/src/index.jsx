@@ -6,9 +6,11 @@ import './index.css';
 import App from './App';
 
 import authReducer from './reducers/authReducer';
+import flashReducer from './reducers/flashReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  flash: flashReducer,
 });
 const store = createStore(
   rootReducer,

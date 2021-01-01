@@ -1,16 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import requireAuth from './hoc/requireAuth';
 import requireNotAuth from './hoc/requireNotAuth';
+import { createSessionAction } from './actions/authActions';
+import { updateMessageAction } from './actions/flashActions';
 import SignUp from './containers/SignUp';
 import SignIn from './containers/SignIn';
 import Profile from './containers/Profile';
+import PopUp from "./containers/PopUp";
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import './App.css';
 
-function App() {
+function App({flash}) {
   return (
     <div className="App">
       <MuiThemeProvider>
@@ -37,6 +41,7 @@ function App() {
                         <Route path="/profile" exact component={requireAuth(Profile)} />
                       </Switch>
                     </BrowserRouter>
+                    <PopUp message={flash.message}/>
                 </Grid>
               </Grid>
             </Paper>
@@ -47,4 +52,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+  flash: state.flash,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  createSession: (token) => dispatch(createSessionAction(token)),
+  updateFlashMessage: (typeMessage, message) =>
+    dispatch(updateMessageAction(typeMessage, message)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

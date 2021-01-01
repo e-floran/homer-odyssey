@@ -1,6 +1,5 @@
 import React, { useEffect} from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {profileAction, deleteSessionAction} from '../actions/authActions';
 import {
@@ -8,7 +7,6 @@ import {
     ListItem,
     ListItemText,
     Button,
-    createMuiTheme,
 } from "@material-ui/core";
 
 function Profile({ token, profile, deleteSession, updateProfile }){
@@ -26,18 +24,24 @@ function Profile({ token, profile, deleteSession, updateProfile }){
     updateProfile({});
     };
 
-    const classes = createMuiTheme();
 
     return(
-        <List>
+        <>
+            <List>
             <ListItem>
-                <ListItemText primary={profile.email} secondary={profile.firstname + " " + profile.lastname}/>
-            </ListItem>
+            <ListItemText primary="email" secondary={profile.email} />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="fullname"
+              secondary={`${profile.firstname} ${profile.lastname}`}
+            />
+          </ListItem>
+            </List>
             <Button
                 onClick={handleLogout}
                 variant="contained"
                 color="primary"
-                className={classes.textField}
                 style={{
                     paddingTop: '16px',
                     paddingBottom: '16px',
@@ -46,7 +50,7 @@ function Profile({ token, profile, deleteSession, updateProfile }){
                 >
                 Log out
             </Button>
-        </List>
+        </>
     )
 }
 

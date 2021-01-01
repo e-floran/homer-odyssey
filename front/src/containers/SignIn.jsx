@@ -5,17 +5,15 @@ import axios from 'axios';
 import {
   TextField,
   Button,
-  SnackbarContent,
-  createMuiTheme,
 } from "@material-ui/core";
 import { createSessionAction } from '../actions/authActions';
+import { updateMessageAction } from '../actions/flashActions';
 
-function SignIn({ createSession }) {
+function SignIn({ createSession, flash, updateFlashMessage }) {
   const [formContent, setFormContent] = useState({
     email: '',
     password: '',
   });
-  const [flash, setFlash] = useState("");
   const history = useHistory();
   const handleChange = (name) => {
     return ({ target: { value } }) => {
@@ -31,18 +29,17 @@ function SignIn({ createSession }) {
         .then((response) => response.data)
         .then(
           (res) => {
-            setFlash(res.message);
+            updateFlashMessage('success', res.flash);
             createSession(res.token);
             history.replace('/');
           },
           (err) =>
-            setFlash(err.response.data)
+          updateFlashMessage('error', 'Your login details are wrong')
         );
     } else {
-      setFlash("All fields must be completed");
+      updateFlashMessage("All fields must be completed");
     }
   };
-  const classes = createMuiTheme();
 
   return (
     <div>
@@ -80,23 +77,18 @@ function SignIn({ createSession }) {
         </Button>
       </form>
       <h2>No account yet ? <Link to={`/signup`}>Sign up</Link></h2>
-      {flash!=="" &&
-      <SnackbarContent
-        className={classes.snackbar}
-        message={flash}
-        style={{ backgroundColor: '#d32f2f' }}
-      />
-      }
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  flash: state.flash,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   createSession: (token) => dispatch(createSessionAction(token)),
+  updateFlashMessage: (typeMessage, message) => dispatch(updateMessageAction(typeMessage, message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
